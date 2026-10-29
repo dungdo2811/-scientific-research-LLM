@@ -5,10 +5,9 @@ from typing import TypeVar
 
 T = TypeVar("T")
 
-
 def call_with_backoff(
-    operation: Callable[[], T],
-    is_transient: Callable[[Exception], bool],
+    operation: Callable[[], T],#GỬi lệnh gọi APi trả về dữ liệu bất kì
+    is_transient: Callable[[Exception], bool], #hàm trả về đúng sai nếu lỗi có thể thử lại
     max_attempts: int = 4,
     base_delay: float = 1.0,
 ) -> T:

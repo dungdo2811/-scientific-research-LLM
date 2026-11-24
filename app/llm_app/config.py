@@ -12,7 +12,7 @@ class Settings:
     timeout_seconds: float
 
 def load_settings() -> Settings:
-    api_key: str = os.getenv("GEMINI_API_KEY")
+    api_key: str = os.getenv("GEMINI_API_KEY", "").strip()
     model_name: str = os.getenv("GEMINI_MODEL", "gemini-3.5-flash").strip()
     timeout_text: str = os.getenv("LLM_TIMEOUT_SECONDS", "60")
 
@@ -31,13 +31,4 @@ def load_settings() -> Settings:
         api_key=api_key,
         model_name=model_name,
         timeout_seconds=timeout_seconds,
-    )
-
-def configure_logging() -> None:
-    logging.basicConfig(
-        level=logging.INFO,
-        format=(
-            "%(asctime)s | %(levelname)s | "
-            "%(name)s | %(message)s"
-        ),
     )

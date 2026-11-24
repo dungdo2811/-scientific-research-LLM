@@ -7,7 +7,7 @@ T = TypeVar("T")
 
 def call_with_backoff(
     operation: Callable[[], T],#GỬi lệnh gọi APi trả về dữ liệu bất kì
-    is_transient: Callable[[Exception], bool], #hàm trả về đúng sai nếu lỗi có thể thử lại
+    is_transient: Callable[[Exception], bool], #hàm trả về đúng nếu lỗi tạm thời, sai nếu lỗi vĩnh viễn
     max_attempts: int = 4,
     base_delay: float = 1.0,
 ) -> T:
@@ -16,7 +16,7 @@ def call_with_backoff(
             return operation()
         except Exception as error:
             if attempt == max_attempts or not is_transient(error):
-                raise
+                raise 
 
             delay = base_delay * (2 ** (attempt - 1))
             jitter = random.uniform(0, 0.25 * delay)

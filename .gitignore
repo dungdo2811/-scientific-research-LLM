@@ -3,3 +3,5 @@
 __pycache__/
 .pytest_cache/
 *.log
+docs
+vnexpress-2026-11-04_07-04-30

@@ -4,6 +4,7 @@ from llm_app.logging_config import configure_logging
 from llm_app.schemas import ChatTurn, SessionState
 
 
+
 def main() -> None:
     configure_logging()
     settings = load_settings()
@@ -15,18 +16,14 @@ def main() -> None:
             print("=== LLM CHAT CLI ===")
             print("Lệnh: exit | clear | history | stats")
             user_input = input("Bạn: ").strip()
-
-            if not user_input:
-                print("Vui lòng nhập câu hỏi.")
-                continue
-
+            
             command = user_input.lower()
             if command in {"exit", "quit", "thoát"}:
                 print("Đã kết thúc chương trình.")
                 break
 
             if command == "clear":
-                # llm.clear_history()
+                llm.clear_history()
                 session.clear()
                 print("Đã xóa lịch sử chat và thống kê phiên.")
                 continue
@@ -65,9 +62,9 @@ def main() -> None:
 
             print(f"AI: {result.text}")
             print(
-                f"[model={result.model}; "
-                f"latency={result.latency_ms:.0f} ms; "
-                f"tokens={result.usage.total_tokens}]"
+                f"(Mô hình: {result.model} | "
+                f"Thời gian: {result.latency_ms / 1000:.2f} giây | "
+                f"Token: {result.usage.total_tokens})"
             )
     finally:
         llm.close()

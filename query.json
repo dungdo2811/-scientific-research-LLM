@@ -1,0 +1,9 @@
+{
+  "locations": [
+    "Hà Nội"
+  ],
+  "indicator": "PM2.5",
+  "operator": "gt",
+  "value": 50.0,
+  "include_inactive": false
+}
